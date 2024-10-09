@@ -64,4 +64,18 @@
     @apply bg-background text-foreground;
     @apply prose prose-base;
   }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  pre,
+  table,
+  ul,
+  ol,
+  blockquote {
+    @apply m-0;
+  }
 }
