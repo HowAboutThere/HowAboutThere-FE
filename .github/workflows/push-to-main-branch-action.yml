@@ -1,0 +1,21 @@
+name: Main Branch Push Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: HowAboutThere/HowAboutThere-FE/.github/workflows/npm-build-action.yml@main
+    with:
+      build-script: build
+      branch-ref: main
+      build-artifact-name: build-output
+
+  deploy:
+    needs: build
+    uses: HowAboutThere/HowAboutThere-FE/.github/workflows/build-s3-deploy-action.yml@main
+    secrets: inherit
+    with:
+      build-artifact-name: build-output

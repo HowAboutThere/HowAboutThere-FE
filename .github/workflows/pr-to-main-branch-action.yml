@@ -1,0 +1,53 @@
+name: Main Branch Action
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: HowAboutThere/HowAboutThere-FE/.github/workflows/npm-build-action.yml@main
+    with:
+      build-script: build
+      branch-ref: ${{ github.event.pull_request.head.sha }}
+
+      # https://octokit.github.io/rest.js/v21/#pulls 를 따릅니다
+      # build 성공 시 merge approve 합니다
+      # 그 외의 경우 merge denied 됩니다
+
+  pr-review:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: pr review 하기
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const noPackageJSON ='${{ needs.build.outputs.no-package-json }}';
+            const buildResult = '${{ needs.build.outputs.build-result }}';
+            const reviewResult = noPackageJSON === "false" && buildResult === "success" ? 'APPROVE' : 'REQUEST_CHANGES';
+
+            const output = `
+            #### 빌드 테스트 결과: ${buildResult}
+            `;
+
+            if (noPackageJSON === "true"){
+              github.rest.pulls.createReview({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                event: reviewResult,
+                body: '빌드 가능한 프로젝트가 없습니다. 다시 한번 확인해주세요'
+              }); 
+            }else {
+              github.rest.pulls.createReview({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                event: reviewResult,
+                body: output
+              }); 
+            }
