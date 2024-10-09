@@ -1,0 +1,112 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Npm Node Build Action
+
+on:
+  workflow_call:
+    inputs:
+      branch-ref:
+        description: "참조 브랜치"
+        type: string
+        required: true
+      build-script:
+        description: "빌드 스크립트"
+        type: string
+        required: false
+        default: "build"
+      build-artifact-name:
+        description: "빌드 결과물 아티팩트 명"
+        type: string
+        required: false
+        default: "build-output"
+    outputs:
+      no-package-json:
+        description: "package.json 파일이 없는 경우"
+        value: ${{ jobs.build.outputs.no-package-json }}
+      build-result:
+        description: "빌드 결과"
+        value: ${{ jobs.build.outputs.build-result }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      no-package-json: ${{ steps.build.outputs.NO_PACKAGE_JSON }}
+      build-result: ${{ steps.build.outputs.BUILD_RESULT }}
+      artifact-id: ${{ steps.upload_build_artifact.outputs.artifact-id }}
+
+    steps:
+      - name: 브랜치 체크아웃
+        uses: actions/checkout@v4
+        with:
+          # pr head commit으로 checkout
+          ref: ${{ inputs.branch-ref}}
+
+      - name: node 설치
+        uses: actions/setup-node@v4
+        with:
+          #노드 버전 (환경변수에 저장해놔야 함)
+          node-version: ${{vars.node-version || 'latest'}}
+
+      - name: node 버전 출력
+        run: echo $(node --version)
+
+      - name: build 시도
+        id: build
+        env:
+          BUILD_SCRIPT: ${{inputs.build-script}}
+
+        # 절대 경로로 찾기
+        # 경로로 이동하기
+        # ci로 종속성 설치 및 빌드 (환경변수에 없으면, npm run build 시도, 실패해도 중단하지 않음)
+        run: |
+          build_script=${{env.BUILD_SCRIPT}}
+          no_package_json="false"
+          build_result="success"
+
+          package_json=$(find "$(pwd)" -name package.json)
+          if [ -z "$package_json" ]; then
+            no_package_json="true"
+            echo "package.json 파일을 찾을 수 없습니다."
+          else
+            set +e          
+            dir=$(dirname "$package_json")
+            echo "처리 중: $dir"
+            cd "$dir"
+            
+            echo "== 종속성 설치 =="
+            if ! npm ci; then
+              echo "npm ci 실패, npm install을 시도합니다"
+              if ! npm install; then
+                echo "npm install 실패"
+                build_result="fail"
+              fi
+            fi
+
+            echo "== 프로젝트 빌드 =="
+            if ! npm run $build_script; then
+              echo "빌드 중 에러가 발생했습니다"
+              build_result="fail"
+            fi
+
+            if  [ "$build_result" = "success" ]; then
+              echo "프로젝트 빌드 성공"
+            else
+              echo "프로젝트 빌드 실패"
+            fi
+          fi
+
+          # 결과를 steps.build에 저장 - 다른 곳에서 사용 가능
+          echo "BUILD_RESULT=${build_result}" >> $GITHUB_OUTPUT
+          dist_dir=$(dirname "$package_json")/dist
+          echo "BUILD_DIST_DIR=${dist_dir}" >> $GITHUB_OUTPUT
+          echo "NO_PACKAGE_JSON=${no_package_json}" >> $GITHUB_OUTPUT
+
+      # 타 위치에서 워크플로 호출시 build 파일을 사용할 수 있도록, artifact로 업로드해놓습니다
+      # 사용을 원할 경우 outputs.artifact-id를 사용하여 download하면 됩니다
+      - name: build 파일 artifact로 내보내기
+        id: upload_build_artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.build-artifact-name }}
+          path: ${{steps.build.outputs.BUILD_DIST_DIR}}
