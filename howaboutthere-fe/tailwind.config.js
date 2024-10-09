@@ -1,3 +1,5 @@
+import plugin from "@tailwindcss/typography";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
@@ -55,7 +57,19 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            "h1, h2, h3, h4, h5, h6": {
+              fontFamily: "Paperlogy",
+            },
+            "p, pre, table, ul, ol, blockquote": {
+              fontFamily: "Pretendard",
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
