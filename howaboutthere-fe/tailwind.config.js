@@ -1,13 +1,12 @@
-import plugin from "@tailwindcss/typography";
-
 /** @type {import('tailwindcss').Config} */
 export default {
+  important: true,
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
       title: ["Paperlogy"],
-      body: ["Pretendard"],
+      body: ["Pretendard Variable"],
     },
     extend: {
       borderRadius: {
@@ -62,9 +61,10 @@ export default {
           css: {
             "h1, h2, h3, h4, h5, h6": {
               fontFamily: "Paperlogy",
+              fontWeight: "800",
             },
             "p, pre, table, ul, ol, blockquote": {
-              fontFamily: "Pretendard",
+              fontFamily: "Pretendard Variable",
             },
           },
         },
