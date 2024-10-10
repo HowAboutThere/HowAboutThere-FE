@@ -63,6 +63,9 @@
   body {
     @apply bg-background text-foreground;
     @apply prose prose-base;
+
+    width: 100dvw;
+    min-height: 100dvh;
   }
   h1,
   h2,
