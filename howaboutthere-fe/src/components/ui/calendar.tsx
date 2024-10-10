@@ -13,8 +13,8 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-        month: "space-y-4",
+        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-6 sm:space-y-0",
+        month: " w-full space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",
         nav: "space-x-1 flex items-center",
@@ -25,8 +25,8 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
-        head_row: "flex",
-        head_cell: " text-muted-foreground rounded-md w-full font-normal text-[0.8rem]",
+        head_row: "flex justify-items-center ",
+        head_cell: " flex px-1  justify-center text-muted-foreground rounded-md w-full font-normal text-[0.8rem]",
         row: "flex w-full mt-2",
         cell: cn(
           " w-full relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
