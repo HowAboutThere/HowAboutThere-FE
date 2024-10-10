@@ -1,6 +1,6 @@
 import AIScheduleFormCard from "@/components/Domain/AISchedule/AIScheduleForm/AIScheduleFormCard";
-import AIScheduleThemeCard from "@/components/Domain/AIScheduleTheme/AIScheduleThemeCard";
-import ScheduleThemeItem from "@/components/Domain/AIScheduleTheme/ScheduleThemeList/ScheduleThemeItem";
+import AIScheduleThemeCard from "@/components/Domain/AISchedule/AIScheduleTheme/AIScheduleThemeCard";
+import ScheduleThemeItem from "@/components/Domain/AISchedule/AIScheduleTheme/ScheduleThemeList/ScheduleThemeItem";
 
 export default function UIComponents() {
   return (
