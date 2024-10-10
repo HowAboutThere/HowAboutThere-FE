@@ -1,4 +1,4 @@
-import AIScheduleFormCard from "@/components/Card/AIScheduleFormCard";
+import AIScheduleFormCard from "@/components/Domain/AISchedule/AIScheduleForm/AIScheduleFormCard";
 import AIScheduleThemeCard from "@/components/Domain/AIScheduleTheme/AIScheduleThemeCard";
 import ScheduleThemeItem from "@/components/Domain/AIScheduleTheme/ScheduleThemeList/ScheduleThemeItem";
 

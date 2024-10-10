@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 
-import Card from "./Card";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form, FormDescription } from "../ui/form";
-import { Input } from "../ui/input";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { DatePickerWithRange } from "../DatePicker/DatePickerWithRange";
-import { Button } from "../ui/button";
+import Card from "../../../Card/Card";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form, FormDescription } from "../../../ui/form";
+import { Input } from "../../../ui/input";
+import { RadioGroup, RadioGroupItem } from "../../../ui/radio-group";
+import { DatePickerWithRange } from "../../../DatePicker/DatePickerWithRange";
+import { Button } from "../../../ui/button";
 
 import { REGIONS } from "@/constant/region";
 import { MAX_BUDGET } from "@/constant/AISchedule";
