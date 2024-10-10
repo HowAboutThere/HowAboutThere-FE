@@ -12,13 +12,15 @@ import { useWindowSize } from "usehooks-ts";
 
 type DatePickerWithRangeProps = {
   isPopover?: boolean;
+  date?: DateRange;
+  onDateChange: SelectRangeEventHandler;
 };
 export function DatePickerWithRange({
   className,
   isPopover,
+  date,
+  onDateChange,
 }: DatePickerWithRangeProps & React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>(undefined);
-
   return (
     <div className={cn("max-w-full grid gap-2", className)}>
       {isPopover ? (
@@ -46,11 +48,11 @@ export function DatePickerWithRange({
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
-            <InternalCalendar dateRange={date} onSelectChange={setDate} />
+            <InternalCalendar dateRange={date} onSelectChange={onDateChange} />
           </PopoverContent>
         </Popover>
       ) : (
-        <InternalCalendar dateRange={date} onSelectChange={setDate} />
+        <InternalCalendar dateRange={date} onSelectChange={onDateChange} />
       )}
     </div>
   );
