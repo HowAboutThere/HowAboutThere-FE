@@ -76,7 +76,7 @@ export default function AIScheduleFormCard() {
                 <FormControl>
                   <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-3">
                     {REGIONS.map((region) => (
-                      <FormItem className="flex items-center space-x-2 space-y-0">
+                      <FormItem key={region.value} className="flex items-center space-x-2 space-y-0">
                         <FormControl>
                           <RadioGroupItem value={region.value} />
                         </FormControl>
