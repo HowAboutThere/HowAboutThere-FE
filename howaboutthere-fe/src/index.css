@@ -62,7 +62,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    @apply prose prose-base;
+    @apply prose prose-base sm:prose-lg md:prose-xl lg:prose-2xl;
 
     min-width: 100dvw;
     min-height: 100dvh;
