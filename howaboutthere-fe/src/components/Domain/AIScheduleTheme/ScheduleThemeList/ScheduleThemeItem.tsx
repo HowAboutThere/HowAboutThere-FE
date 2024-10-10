@@ -1,15 +1,32 @@
 import { Badge } from "@/components/ui/badge";
+import { Selectable } from "@/types/form";
 import { ThemeType } from "@/types/theme-type";
+import { cn } from "@/lib/utils";
 
-type ScheduleThemeItemType = ThemeType & {
-  imgSrc?: string;
-};
+type ScheduleThemeItemType = Selectable &
+  ThemeType & {
+    imgSrc?: string;
+  };
 
-export default function ScheduleThemeItem({ country, city, travelType, imgSrc }: ScheduleThemeItemType) {
+export default function ScheduleThemeItem({
+  country,
+  city,
+  travelType,
+  imgSrc,
+  isSelected,
+  onSelect,
+}: ScheduleThemeItemType) {
   return (
-    <li className="p-2 border border-r-8 rounded-lg list-none">
+    <li
+      className={cn(
+        "p-2 border border-r-8 rounded-lg list-none bg-white m-0",
+        isSelected && "bg-sky-100",
+        !isSelected && "hover:bg-sky-50"
+      )}
+      onClick={onSelect}
+    >
       <div className="flex justify-between items-center">
-        <div className="overflow-hidden w-24">
+        <div className="shrink-0 overflow-hidden w-24">
           {imgSrc && (
             <img
               className="aspect-video object-cover object-center m-0"
