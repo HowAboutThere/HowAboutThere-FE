@@ -9,7 +9,7 @@ type CardProps = {
 
 export default function Card({ title, description, children }: CardProps) {
   return (
-    <DefaultCard>
+    <DefaultCard className="w-full">
       <CardHeader>
         <h2>{title}</h2>
         <p className=" text-muted-foreground">{description}</p>
