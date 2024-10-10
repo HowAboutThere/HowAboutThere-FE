@@ -20,7 +20,7 @@ export default function ScheduleThemeItem({
   return (
     <ListItem isSelected={isSelected} onSelect={onSelect}>
       <div className="flex justify-between items-center">
-        <div className="shrink-0 overflow-hidden w-24">
+        <div className="shrink-0 overflow-hidden w-24 sm:w-32 md:w-40 lg:w-48">
           {imgSrc && (
             <img
               className="aspect-video object-cover object-center m-0"
