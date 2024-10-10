@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge";
-import { Selectable } from "@/types/form";
+import ListItem from "@/components/List/ListItem";
+
 import { ThemeType } from "@/types/theme-type";
-import { cn } from "@/lib/utils";
+import { Selectable } from "@/types/form";
 
 type ScheduleThemeItemType = Selectable &
   ThemeType & {
@@ -17,14 +18,7 @@ export default function ScheduleThemeItem({
   onSelect,
 }: ScheduleThemeItemType) {
   return (
-    <li
-      className={cn(
-        "p-2 border border-r-8 rounded-lg list-none bg-white m-0",
-        isSelected && "bg-sky-100",
-        !isSelected && "hover:bg-sky-50"
-      )}
-      onClick={onSelect}
-    >
+    <ListItem isSelected={isSelected} onSelect={onSelect}>
       <div className="flex justify-between items-center">
         <div className="shrink-0 overflow-hidden w-24">
           {imgSrc && (
@@ -45,6 +39,6 @@ export default function ScheduleThemeItem({
           <h4 className="text-stone-700">{travelType}</h4>
         </div>
       </div>
-    </li>
+    </ListItem>
   );
 }
