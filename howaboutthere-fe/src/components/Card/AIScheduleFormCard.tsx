@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import Card from "./Card";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form } from "../ui/form";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form, FormDescription } from "../ui/form";
 import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { DatePickerWithRange } from "../DatePicker/DatePickerWithRange";
@@ -19,6 +19,10 @@ type AIPlannerFormType = {
 
 export default function AIScheduleFormCard() {
   const form = useForm<AIPlannerFormType>();
+  const wonCurrency = Intl.NumberFormat("ko-KR", {
+    style: "currency",
+    currency: "KRW",
+  });
 
   return (
     <Card title={"정보 입력"} description={"여행 일정을 만들기 위한 사전 정보를 입력하는 곳입니다."}>
@@ -30,6 +34,7 @@ export default function AIScheduleFormCard() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>예산</FormLabel>
+
                 <div className="relative">
                   <FormControl>
                     <Input
@@ -41,6 +46,9 @@ export default function AIScheduleFormCard() {
                     />
                   </FormControl>
                   <span className="absolute right-3 top-1/2 -translate-y-1/2">원</span>
+                  <FormDescription>
+                    최대 <span className="underline">{wonCurrency.format(MAX_BUDGET)}</span>까지 입력 가능합니다.
+                  </FormDescription>
                 </div>
                 <FormMessage />
               </FormItem>
