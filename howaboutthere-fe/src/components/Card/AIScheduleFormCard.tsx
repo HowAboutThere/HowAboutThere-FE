@@ -46,10 +46,10 @@ export default function AIScheduleFormCard() {
                     />
                   </FormControl>
                   <span className="absolute right-3 top-1/2 -translate-y-1/2">원</span>
-                  <FormDescription>
-                    최대 <span className="underline">{wonCurrency.format(MAX_BUDGET)}</span>까지 입력 가능합니다.
-                  </FormDescription>
                 </div>
+                <FormDescription>
+                  최대 <span className="underline">{wonCurrency.format(MAX_BUDGET)}</span>까지 입력 가능합니다.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
