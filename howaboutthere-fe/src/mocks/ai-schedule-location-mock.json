@@ -1,0 +1,74 @@
+{
+  "result": [
+    {
+      "location": "바나 힐",
+      "address": "Hoàng Sơn, Hòa Vang, Đà Nẵng, Vietnam",
+      "description": "산 정상의 테마파크로, 황금의 다리로 유명한 관광지입니다.",
+      "imgSrc": "https://example.com/bana-hills.jpg",
+      "latlng": { "lat": 15.9977, "lng": 107.9886 }
+    },
+    {
+      "location": "미케 비치",
+      "address": "Hoàng Sa, Thọ Quang, Sơn Trà, Đà Nẵng, Vietnam",
+      "description": "다낭에서 가장 유명한 해변 중 하나로, 아름다운 백사장과 맑은 바다를 자랑합니다.",
+      "imgSrc": "https://example.com/my-khe-beach.jpg",
+      "latlng": { "lat": 16.0544, "lng": 108.2472 }
+    },
+    {
+      "location": "용 다리",
+      "address": "Nguyễn Văn Linh, Phước Ninh, Hải Châu, Đà Nẵng, Vietnam",
+      "description": "한 다리의 입에서 불을 뿜는 용 모양의 독특한 다리입니다.",
+      "imgSrc": "https://example.com/dragon-bridge.jpg",
+      "latlng": { "lat": 16.061, "lng": 108.2272 }
+    },
+    {
+      "location": "손 트라 반도",
+      "address": "Thọ Quang, Sơn Trà, Đà Nẵng, Vietnam",
+      "description": "열대 우림과 아름다운 해변이 있는 자연 보호 구역입니다.",
+      "imgSrc": "https://example.com/son-tra-peninsula.jpg",
+      "latlng": { "lat": 16.106, "lng": 108.2623 }
+    },
+    {
+      "location": "마블 마운틴",
+      "address": "81 Huyền Trân Công Chúa, Hòa Hải, Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+      "description": "대리석 산으로 불리며, 동굴과 사원이 있는 관광지입니다.",
+      "imgSrc": "https://example.com/marble-mountains.jpg",
+      "latlng": { "lat": 15.9595, "lng": 108.2581 }
+    },
+    {
+      "location": "다낭 대성당",
+      "address": "156 Trần Phú, Hải Châu 1, Hải Châu, Đà Nẵng, Vietnam",
+      "description": "분홍색 외관이 특징인 로마 가톨릭 교회입니다.",
+      "imgSrc": "https://example.com/danang-cathedral.jpg",
+      "latlng": { "lat": 16.0677, "lng": 108.2208 }
+    },
+    {
+      "location": "린 응 사원",
+      "address": "103 Lê Đình Lý, Vĩnh Trung, Thanh Khê, Đà Nẵng, Vietnam",
+      "description": "거대한 관음보살상이 있는 불교 사원입니다.",
+      "imgSrc": "https://example.com/linh-ung-pagoda.jpg",
+      "latlng": { "lat": 16.1001, "lng": 108.2631 }
+    },
+    {
+      "location": "다낭 박물관",
+      "address": "24 Trần Phú, Thạch Thang, Hải Châu, Đà Nẵng, Vietnam",
+      "description": "참족 유물과 다낭의 역사를 전시하는 박물관입니다.",
+      "imgSrc": "https://example.com/danang-museum.jpg",
+      "latlng": { "lat": 16.0785, "lng": 108.2229 }
+    },
+    {
+      "location": "아시아 파크",
+      "address": "1 Phan Đăng Lưu, Hoà Cường Bắc, Hải Châu, Đà Nẵng, Vietnam",
+      "description": "다양한 놀이기구와 공연이 있는 대형 놀이공원입니다.",
+      "imgSrc": "https://example.com/asia-park.jpg",
+      "latlng": { "lat": 16.0372, "lng": 108.2236 }
+    },
+    {
+      "location": "다낭 야시장",
+      "address": "Trần Phú, Hải Châu, Đà Nẵng, Vietnam",
+      "description": "현지 음식과 기념품을 판매하는 활기찬 야시장입니다.",
+      "imgSrc": "https://example.com/danang-night-market.jpg",
+      "latlng": { "lat": 16.0813, "lng": 108.2247 }
+    }
+  ]
+}
