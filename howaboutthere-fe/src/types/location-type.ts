@@ -3,4 +3,10 @@ export type LocationType = {
   address: string;
   description: string;
   imgSrc?: string;
+  latlng: LatLng;
+};
+
+export type LatLng = {
+  lat: number;
+  lng: number;
 };
