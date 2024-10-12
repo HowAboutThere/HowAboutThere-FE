@@ -10,21 +10,27 @@ import Map from "@/components/Map/Map";
 import { LocationType } from "@/types/location-type";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useEffect } from "react";
+import { useMultipleSelect } from "@/hooks/useMultipleSelect";
 
 type AIScheduleLocationType = {
-  location: LocationType;
+  locations: LocationType[];
 };
 
 export default function AIScheduleLocationCard() {
-  const form = useForm<AIScheduleLocationType>();
+  const { toggleSelect, isItemInSelectedItems } = useMultipleSelect<LocationType>();
+  const form = useForm<AIScheduleLocationType>({
+    defaultValues: {
+      locations: [],
+    },
+  });
   const locations = mocks;
 
   const map = useMap("ai-schedule-location-map");
 
   useEffect(() => {
     const { unsubscribe } = form.watch((value, { name }) => {
-      if (name === "location") {
-        const latlng = value.location?.latlng;
+      if (name === "locations") {
+        const latlng = value.locations?.at(-1)?.latlng;
         console.log(latlng);
         if (latlng) {
           map?.panTo({ lat: latlng.lat!, lng: latlng.lng! });
@@ -45,18 +51,19 @@ export default function AIScheduleLocationCard() {
           <form className="flex flex-col gap-4">
             <FormField
               control={form.control}
-              name={"location"}
+              name={"locations"}
               render={({ field }) => (
                 <ol className="flex flex-col w-full p-0 gap-1">
                   {locations.result.map((location) => (
                     <ScheduleLocationItem
-                      key={location.location}
+                      id={location.id}
+                      key={location.id}
                       location={location.location}
                       address={location.address}
                       description={location.description}
                       imgSrc="https://images.unsplash.com/photo-1696993545232-2b2717676c40?q=80&w=1392&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      isSelected={field.value && field.value.location === location.location}
-                      onSelect={() => field.onChange(location)}
+                      isSelected={field.value && isItemInSelectedItems(field.value, location)}
+                      onSelect={() => field.onChange(toggleSelect(field.value, location))}
                       latlng={location.latlng}
                     />
                   ))}
