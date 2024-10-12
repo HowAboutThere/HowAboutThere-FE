@@ -73,6 +73,9 @@ jobs:
             dir=$(dirname "$package_json")
             echo "처리 중: $dir"
             cd "$dir"
+
+            echo "== env 파일 추가 =="
+            echo "${{ secrets.ENV }}" > .env
             
             echo "== 종속성 설치 =="
             if ! npm ci; then
