@@ -9,10 +9,10 @@ type MapPinProps = {
   isAnimated?: boolean;
 };
 
-export default function MapPin({ position, isAnimated: isHover }: MapPinProps) {
+export default function MapPin({ position, isAnimated }: MapPinProps) {
   return (
     <AdvancedMarker position={position}>
-      <img className={cn("w-4", isHover && " animate-bounce")} src={Pin} alt="pin" />
+      <img className={cn("w-4", isAnimated && " animate-bounce")} src={Pin} alt="pin" />
     </AdvancedMarker>
   );
 }
