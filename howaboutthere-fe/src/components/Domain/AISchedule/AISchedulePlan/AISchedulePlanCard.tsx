@@ -27,7 +27,7 @@ export default function AIScheduleLocationCard() {
   const [currentDay, setCurrentDay] = useState(0);
   const [_, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
 
-  const map = useMap("ai-schedule-location-map");
+  const map = useMap("ai-schedule-plan-map");
 
   useLayoutEffect(() => {
     if (map && plans?.result[currentDay]?.schedule) {
@@ -56,7 +56,7 @@ export default function AIScheduleLocationCard() {
     <Card title={"AI 여행 계획"} description={"선택한 여행지를 기반으로 완성한 일정입니다"}>
       <div className="flex flex-col gap-8">
         <div className=" border rounded-xl overflow-hidden">
-          <Map id="ai-schedule-location-map">
+          <Map id="ai-schedule-plan-map">
             {plans?.result[currentDay]?.schedule?.map((plan) => {
               return "latlng" in plan ? (
                 <MapPin key={`${plan.latlng.lat}-${plan.latlng.lng}`} position={plan.latlng} />
