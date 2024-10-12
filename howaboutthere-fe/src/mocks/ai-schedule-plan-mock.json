@@ -1,0 +1,207 @@
+{
+  "result": [
+    {
+      "date": "2024-10-13",
+      "description": "오늘은 다낭에서의 첫날로, 실용적인 쇼핑과 자연 탐험, 그리고 현지 문화 체험의 완벽한 조화를 경험하실 수 있습니다. 롯데마트에서의 쇼핑으로 시작해 후옌콩 동굴의 신비로운 자연을 거쳐, 호이안 야시장의 활기찬 분위기로 마무리되는 흥미진진한 하루가 될 것입니다.",
+      "schedule": [
+        {
+          "type": "activity",
+          "time": "10:00",
+          "location": "롯데마트 다낭점",
+          "latlng": [16.034472, 108.2281336],
+          "activity": "필요한 물품 구매 및 쇼핑하기",
+          "duration": 30
+        },
+        {
+          "type": "transport",
+          "method": "taxi",
+          "duration": 30
+        },
+        {
+          "type": "activity",
+          "time": "14:00",
+          "location": "Huyen Khong Cave",
+          "latlng": [16.0047814, 108.2590678],
+          "activity": "다낭의 유명한 자연 명소 관광",
+          "duration": 45
+        },
+        {
+          "type": "transport",
+          "method": "taxi",
+          "duration": 45
+        },
+        {
+          "type": "activity",
+          "time": "19:00",
+          "location": "호이안 야시장",
+          "latlng": [15.8759693, 108.3234381],
+          "activity": "현지 문화 체험 및 야시장 탐방",
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "date": "2024-10-14",
+      "description": "다낭의 아름다운 해변과 현대적인 명소를 탐험하는 날입니다. 미케비치의 황금빛 모래사장에서 여유로운 오전을 보내고, 독특한 건축미의 골든브릿지를 거쳐, 화려한 야경이 펼쳐지는 한강브릿지에서 하루를 마무리합니다. 자연과 현대 건축의 조화를 느낄 수 있는 특별한 하루가 될 것입니다.",
+      "schedule": [
+        {
+          "type": "activity",
+          "time": "09:00",
+          "location": "미케비치",
+          "latlng": [16.0521419, 108.2293575],
+          "activity": "해변에서 휴식 및 수영",
+          "duration": 180
+        },
+        {
+          "type": "transport",
+          "method": "bus",
+          "duration": 45
+        },
+        {
+          "type": "activity",
+          "time": "14:00",
+          "location": "골든브릿지",
+          "latlng": [15.994892, 107.9940028],
+          "activity": "바나힐 관광 및 골든브릿지 방문",
+          "duration": 180
+        },
+        {
+          "type": "transport",
+          "method": "taxi",
+          "duration": 30
+        },
+        {
+          "type": "activity",
+          "time": "20:00",
+          "location": "한강브릿지",
+          "latlng": [16.0665368, 108.2249211],
+          "activity": "야경 감상",
+          "duration": 60
+        }
+      ]
+    },
+    {
+      "date": "2024-10-15",
+      "description": "오늘은 베트남의 역사와 문화에 깊이 빠져드는 날입니다. 참 박물관에서 베트남 전쟁의 역사를 배우고, 마블마운틴의 영적인 분위기를 느낀 후, 전통 요리 클래스로 베트남 음식 문화를 직접 체험합니다. 과거와 현재가 공존하는 베트남의 다채로운 모습을 경험하는 의미 있는 하루가 될 것입니다.",
+      "schedule": [
+        {
+          "type": "activity",
+          "time": "09:30",
+          "location": "참 박물관",
+          "latlng": [16.0603007, 108.2206874],
+          "activity": "박물관 관람",
+          "duration": 120
+        },
+        {
+          "type": "transport",
+
+          "method": "taxi",
+          "duration": 20
+        },
+        {
+          "type": "activity",
+          "time": "13:00",
+          "location": "마블마운틴",
+          "latlng": [16.0034756, 108.262],
+          "activity": "사원 방문 및 동굴 탐험",
+          "duration": 180
+        },
+        {
+          "type": "transport",
+
+          "method": "taxi",
+          "duration": 25
+        },
+        {
+          "type": "activity",
+          "time": "18:00",
+          "location": "현지 요리 학교",
+          "latlng": [16.0276658, 108.2428288],
+          "activity": "베트남 요리 클래스",
+          "duration": 150
+        }
+      ]
+    },
+    {
+      "date": "2024-10-16",
+      "description": "다낭 주변의 유네스코 세계문화유산을 탐험하는 날입니다. 미손 유적지에서 고대 참파 왕국의 신비로운 흔적을 만나고, 호이안 고대도시에서는 베트남의 전통적인 건축과 문화를 체험합니다. 역사의 숨결이 살아있는 장소들을 방문하며 베트남의 풍부한 문화유산을 깊이 있게 이해하는 시간이 될 것입니다.",
+      "schedule": [
+        {
+          "type": "activity",
+          "time": "09:30",
+          "location": "미손 유적지",
+          "latlng": [15.7687821, 108.1167351],
+          "activity": "고대 유적지 탐방",
+          "duration": 180
+        },
+        {
+          "type": "transport",
+          "method": "bus",
+          "duration": 60
+        },
+
+        {
+          "type": "activity",
+          "time": "20:00",
+          "location": "포슈아 강변",
+          "latlng": [15.8769354, 108.3356754],
+          "activity": "강변 디너",
+          "duration": 90
+        }
+      ]
+    },
+    {
+      "date": "2024-10-17",
+      "description": "여행의 마지막 날은 다낭의 현대적인 면모와 전통적인 시장을 경험하는 시간입니다. 드래곤 브릿지에서 시작해 콘다오 시장의 활기찬 분위기를 만끽하고, 손 트라 해변에서 여유로운 시간을 보냅니다. 마지막으로 아시아파크에서 즐거운 놀이기구와 화려한 쇼를 즐기며 여행의 대미를 장식합니다. 다낭의 다양한 매력을 한 번에 느낄 수 있는 풍성한 하루가 될 것입니다.",
+      "schedule": [
+        {
+          "type": "activity",
+          "time": "08:00",
+          "location": "드래곤 브릿지",
+          "latlng": [16.0611377, 108.2246288],
+          "activity": "브릿지 관광",
+          "duration": 60
+        },
+        {
+          "type": "transport",
+          "method": "walk",
+          "duration": 15
+        },
+        {
+          "type": "activity",
+          "time": "09:30",
+          "location": "Con Market",
+          "latlng": [16.0705452, 108.1850006],
+          "activity": "현지 시장 체험",
+          "duration": 120
+        },
+        {
+          "type": "transport",
+          "method": "taxi",
+          "duration": 20
+        },
+        {
+          "type": "activity",
+          "time": "13:00",
+          "location": "선짜 남쪽해변",
+          "latlng": [16.1050883, 108.2615011],
+          "activity": "해변 휴식 및 수상 활동",
+          "duration": 180
+        },
+        {
+          "type": "transport",
+          "method": "taxi",
+          "duration": 25
+        },
+        {
+          "type": "activity",
+          "time": "18:00",
+          "location": "아시아파크",
+          "latlng": [16.0412139, 108.2230529],
+          "activity": "놀이공원 체험 및 야간 쇼 관람",
+          "duration": 240
+        }
+      ]
+    }
+  ]
+}
