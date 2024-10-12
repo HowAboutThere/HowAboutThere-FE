@@ -1,11 +1,12 @@
 import mocks from "@/mocks/ai-schedule-theme-mock.json";
 
 import { useForm } from "react-hook-form";
-import { Button } from "../../ui/button";
-import { Form, FormField } from "../../ui/form";
-import Card from "../../Card/Card";
+
 import { ThemeType } from "@/types/theme-type";
 import ScheduleThemeItem from "./ScheduleThemeList/ScheduleThemeItem";
+import Card from "@/components/Card/Card";
+import { Form, FormField } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
 type AIScheduleThemeType = {
   theme: ThemeType;

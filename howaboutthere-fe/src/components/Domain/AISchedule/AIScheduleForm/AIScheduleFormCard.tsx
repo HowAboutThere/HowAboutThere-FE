@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
 
-import Card from "./Card";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form, FormDescription } from "../ui/form";
-import { Input } from "../ui/input";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { DatePickerWithRange } from "../DatePicker/DatePickerWithRange";
-import { Button } from "../ui/button";
+import Card from "@/components/Card/Card";
+import { DatePickerWithRange } from "@/components/DatePicker/DatePickerWithRange";
+import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Button } from "@/components/ui/button";
 
+import { DateRange } from "react-day-picker";
 import { REGIONS } from "@/constant/region";
 import { MAX_BUDGET } from "@/constant/AISchedule";
-import { DateRange } from "react-day-picker";
 
 type AIPlannerFormType = {
   budget?: number;
