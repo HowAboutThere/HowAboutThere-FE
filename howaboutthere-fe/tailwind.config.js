@@ -63,7 +63,7 @@ export default {
               fontFamily: "Paperlogy",
               fontWeight: "800",
             },
-            "p, pre, table, ul, ol, blockquote, span": {
+            "p, pre, table, ul, ol, blockquote, span, small": {
               fontFamily: "Pretendard Variable",
             },
           },

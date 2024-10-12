@@ -1,6 +1,7 @@
 import AIScheduleFormCard from "@/components/Domain/AISchedule/AIScheduleForm/AIScheduleFormCard";
 import AIScheduleLocationCard from "@/components/Domain/AISchedule/AIScheduleLocation/AIScheduleLocationCard";
 import ScheduleLocationItem from "@/components/Domain/AISchedule/AIScheduleLocation/ScheduleLocationList/ScheduleLocationItem";
+import AISchedulePlanCard from "@/components/Domain/AISchedule/AISchedulePlan/AISchedulePlanCard";
 import AIScheduleThemeCard from "@/components/Domain/AISchedule/AIScheduleTheme/AIScheduleThemeCard";
 import ScheduleThemeItem from "@/components/Domain/AISchedule/AIScheduleTheme/ScheduleThemeList/ScheduleThemeItem";
 
@@ -51,6 +52,10 @@ export default function UIComponents() {
             lng: 0,
           }}
         />
+      </div>
+      <div className="p-6">
+        <h2 className="mb-4 text-rose-500">AISchedulePlanCard</h2>
+        <AISchedulePlanCard />
       </div>
     </div>
   );
