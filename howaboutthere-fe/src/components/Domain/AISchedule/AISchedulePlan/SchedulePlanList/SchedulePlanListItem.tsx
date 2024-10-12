@@ -1,13 +1,13 @@
 import { ActivityPlan, TransportPlan } from "@/types/plan-type";
 
-type SchedulePlanListItemProps = ActivityPlan & TransportPlan;
+type SchedulePlanListItemProps = ActivityPlan | TransportPlan;
 
 export default function SchedulePlanListItem(props: SchedulePlanListItemProps) {
   switch (props.type) {
     case "activity":
-      return <ActivityPlanListItem {...props} />;
+      return <ActivityPlanListItem {...(props as ActivityPlan)} />;
     case "transport":
-      return <TransportPlanListItem {...props} />;
+      return <TransportPlanListItem {...(props as TransportPlan)} />;
     default:
       return null;
   }

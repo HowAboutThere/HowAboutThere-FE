@@ -25,7 +25,7 @@ type PlanAPIResponse = {
 export default function AIScheduleLocationCard() {
   const plans: PlanAPIResponse = mocks as PlanAPIResponse;
   const [currentDay, setCurrentDay] = useState(0);
-  const [currentPolyline, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
+  const [_, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
 
   const map = useMap("ai-schedule-location-map");
 
@@ -64,11 +64,7 @@ export default function AIScheduleLocationCard() {
             })}
           </Map>
         </div>
-        <SchedulePlanSummary
-          summary={
-            "오늘은 베트남의 역사와 문화에 깊이 빠져드는 날입니다. 참 박물관에서 베트남 전쟁의 역사를 배우고, 마블마운틴의 영적인 분위기를 느낀 후, 전통 요리 클래스로 베트남 음식 문화를 직접 체험합니다. 과거와 현재가 공존하는 베트남의 다채로운 모습을 경험하는 의미 있는 하루가 될 것입니다."
-          }
-        />
+        <SchedulePlanSummary summary={plans?.result[currentDay]?.description} />
         <article className="relative p-2 flex flex-col gap-4 items-center rounded-lg bg-sky-50 overflow-hidden">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-4">
