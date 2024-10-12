@@ -25,6 +25,7 @@ type PlanAPIResponse = {
 export default function AIScheduleLocationCard() {
   const plans: PlanAPIResponse = mocks as PlanAPIResponse;
   const [currentDay, setCurrentDay] = useState(0);
+  const [currentPolyline, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
 
   const map = useMap("ai-schedule-location-map");
 
@@ -34,6 +35,20 @@ export default function AIScheduleLocationCard() {
       console.log(points);
       const bounds = getBoundFromPoints(points);
       map.fitBounds(bounds);
+
+      const polyline = new google.maps.Polyline({
+        path: points,
+        geodesic: true,
+        strokeColor: "#ff4747",
+        strokeOpacity: 0.5,
+        strokeWeight: 3,
+      });
+
+      setCurrentPolyline((prevPolyline) => {
+        prevPolyline?.setMap(null);
+        polyline.setMap(map);
+        return polyline;
+      });
     }
   }, [currentDay, map, plans.result]);
 
