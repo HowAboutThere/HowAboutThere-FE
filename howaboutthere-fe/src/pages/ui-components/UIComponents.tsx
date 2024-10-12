@@ -19,6 +19,7 @@ export default function UIComponents() {
       <div className="p-6">
         <h2 className="mb-4 text-rose-500">ScheduleThemeItem</h2>
         <ScheduleThemeItem
+          id={1}
           country={"태국"}
           city={"푸켓"}
           travelType={"해변 휴양"}
@@ -35,6 +36,7 @@ export default function UIComponents() {
       <div className="p-6">
         <h2 className="mb-4 text-rose-500">ScheduleLocationItem</h2>
         <ScheduleLocationItem
+          id={1}
           onSelect={function (): void {
             throw new Error("Function not implemented.");
           }}
