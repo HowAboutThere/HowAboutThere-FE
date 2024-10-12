@@ -22,7 +22,7 @@ type PlanAPIResponse = {
   }>;
 };
 
-export default function AIScheduleLocationCard() {
+export default function AISchedulePlanCard() {
   const plans: PlanAPIResponse = mocks as PlanAPIResponse;
   const [currentDay, setCurrentDay] = useState(0);
   const [_, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
