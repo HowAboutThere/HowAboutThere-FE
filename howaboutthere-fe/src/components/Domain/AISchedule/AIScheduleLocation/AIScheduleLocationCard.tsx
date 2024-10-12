@@ -9,43 +9,51 @@ import ScheduleLocationItem from "./ScheduleLocationList/ScheduleLocationItem";
 import Map from "@/components/Map/Map";
 import { LocationType } from "@/types/location-type";
 import { useMap } from "@vis.gl/react-google-maps";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useMultipleSelect } from "@/hooks/useMultipleSelect";
+import { getBoundFromPoints } from "@/utils/mapUtil";
+import MapPin from "@/components/Map/MapPin";
 
 type AIScheduleLocationType = {
   locations: LocationType[];
 };
 
 export default function AIScheduleLocationCard() {
+  const locations = mocks;
   const { toggleSelect, isItemInSelectedItems } = useMultipleSelect<LocationType>();
+
   const form = useForm<AIScheduleLocationType>({
     defaultValues: {
       locations: [],
     },
   });
-  const locations = mocks;
+  const selectedLocations = form.watch("locations");
 
   const map = useMap("ai-schedule-location-map");
 
-  useEffect(() => {
-    const { unsubscribe } = form.watch((value, { name }) => {
-      if (name === "locations") {
-        const latlng = value.locations?.at(-1)?.latlng;
-        console.log(latlng);
-        if (latlng) {
-          map?.panTo({ lat: latlng.lat!, lng: latlng.lng! });
-        }
-      }
-    });
+  useLayoutEffect(() => {
+    map?.fitBounds(getBoundFromPoints(locations.result.map((location) => location.latlng)));
+  }, [locations.result, map]);
 
-    return () => unsubscribe();
-  }, [form, map]);
+  useLayoutEffect(() => {
+    document.getAnimations().forEach((animation) => {
+      animation.currentTime = 0;
+    });
+  }, [selectedLocations]);
 
   return (
     <Card title={"여행지 선택"} description={"마음에 드는 여행지를 골라주세요"}>
       <div className="flex flex-col gap-8">
         <div className=" border rounded-xl overflow-hidden">
-          <Map id="ai-schedule-location-map" />
+          <Map id="ai-schedule-location-map">
+            {locations.result.map((location) => (
+              <MapPin
+                key={`${location.latlng.lat}-${location.latlng.lng}`}
+                position={location.latlng}
+                isAnimated={isItemInSelectedItems(selectedLocations, location)}
+              />
+            ))}
+          </Map>
         </div>
         <Form {...form}>
           <form className="flex flex-col gap-4">
