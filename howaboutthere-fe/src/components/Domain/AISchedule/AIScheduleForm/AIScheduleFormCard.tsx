@@ -11,24 +11,54 @@ import { DateRange } from "react-day-picker";
 import { REGIONS } from "@/constant/region";
 import { MAX_BUDGET } from "@/constant/AISchedule";
 import { usePunnel } from "@/hooks/usePunnel";
+import { useMutation } from "@tanstack/react-query";
+import { postAIScheduleTheme } from "@/apis/api/ai-schedule-api";
+import { useAIScheduleStore } from "@/stores/ai-schedule-store";
+import { ThemeType } from "@/types/theme-type";
 
-type AIPlannerFormType = {
-  budget?: number;
-  schedule?: DateRange;
+export type AIScheduleFormType = {
+  budget: number;
+  schedule: DateRange;
   region: "domestic" | "foreign";
 };
 
 export default function AIScheduleFormCard() {
   const { getNextPunnel } = usePunnel();
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postAIScheduleTheme,
+  });
 
-  const form = useForm<AIPlannerFormType>();
+  const setForm = useAIScheduleStore((state) => state.updateForm);
+  const setThemes = useAIScheduleStore((state) => state.updateThemes);
+
+  const form = useForm<AIScheduleFormType>({
+    defaultValues: {
+      budget: 0,
+      schedule: { from: undefined, to: undefined },
+      region: "domestic",
+    },
+  });
   const wonCurrency = Intl.NumberFormat("ko-KR", {
     style: "currency",
     currency: "KRW",
   });
 
-  const onClickNext = () => {
-    console.log(form.getValues());
+  const onClickNext = async () => {
+    setForm(form.getValues());
+
+    const result = await mutateAsync({
+      startDate: form.getValues("schedule").from!.toISOString(),
+      endDate: form.getValues("schedule").to!.toISOString(),
+      budget: form.getValues("budget"),
+      isDomestic: form.getValues("region") === "domestic",
+    });
+    const newTheme = result.map<ThemeType>((theme, index) => ({
+      id: index,
+      city: theme.region, //TODO: 추후에 region으로 변경
+      travelType: theme.theme,
+    }));
+    setThemes(newTheme);
+
     getNextPunnel();
   };
 
@@ -97,7 +127,7 @@ export default function AIScheduleFormCard() {
               </FormItem>
             )}
           />
-          <Button type="button" onClick={onClickNext}>
+          <Button type="button" onClick={onClickNext} disabled={isPending}>
             다음
           </Button>
         </form>

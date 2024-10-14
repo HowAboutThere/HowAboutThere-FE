@@ -1,6 +1,6 @@
 export type ThemeType = {
   id: number;
-  country: string;
+  country?: string;
   city: string;
   travelType: string;
 };
