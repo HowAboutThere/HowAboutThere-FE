@@ -6,7 +6,6 @@ export type TransportType = "taxi" | "bus" | "subway" | "walk";
 export type Plan = {
   id: number;
   type: PlanType;
-  duration: number;
 };
 
 export type ActivityPlan = Plan & {
