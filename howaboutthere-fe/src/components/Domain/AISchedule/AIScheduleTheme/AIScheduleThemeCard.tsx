@@ -9,7 +9,7 @@ import { Form, FormField } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { usePunnel } from "@/hooks/usePunnel";
 import { useMutation } from "@tanstack/react-query";
-import { getLocationInfo, getLocationPhoto, postAIScheduleLocation } from "@/apis/api/ai-schedule-api";
+import { postAIScheduleLocation } from "@/apis/api/ai-schedule-api";
 import { useAIScheduleStore } from "@/stores/ai-schedule-store";
 import { LocationType } from "@/types/location-type";
 import { useEffect } from "react";
@@ -34,7 +34,7 @@ export default function AIScheduleThemeCard() {
   useEffect(() => {
     const fetchLocationInfo = async () => {
       if (!isError) return;
-      const locationInfo = await Promise.all(mocks.map((location) => getLocationInfo({ placeId: location.placeId })));
+      // const locationInfo = await Promise.all(mocks.map((location) => getLocationInfo({ placeId: location.placeId })));
       // const photos = await Promise.all(
       //   locationInfo.map((info) => getLocationPhoto({ photo_reference: info.photos[0].photo_reference }))
       // );
