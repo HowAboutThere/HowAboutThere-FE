@@ -1,3 +1,4 @@
+import Layout from "@/components/Layout/Layout";
 import AISchedulePage from "@/pages/ai-schedule/AISchedulePage";
 import SignInPage from "@/pages/sign-in/SignInPage";
 import SignUpPage from "@/pages/sign-up/SignUpPage";
@@ -7,23 +8,28 @@ import { createBrowserRouter } from "react-router-dom";
 export const router = createBrowserRouter([
   {
     path: "/",
-    // element: <Hero/>
-    children: [],
-  },
-  {
-    path: "/ui-components",
-    element: <UIComponents />,
-  },
-  {
-    path: "/ai-schedule",
-    element: <AISchedulePage />,
-  },
-  {
-    path: "/sign-in",
-    element: <SignInPage />,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUpPage />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        // element: <Hero />,
+      },
+      {
+        path: "ui-components",
+        element: <UIComponents />,
+      },
+      {
+        path: "ai-schedule",
+        element: <AISchedulePage />,
+      },
+      {
+        path: "sign-in",
+        element: <SignInPage />,
+      },
+      {
+        path: "sign-up",
+        element: <SignUpPage />,
+      },
+    ],
   },
 ]);
