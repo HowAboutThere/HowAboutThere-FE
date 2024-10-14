@@ -21,7 +21,7 @@ export default function ScheduleLocationItem({
           )}
         </div>
         <div className="w-full min-w-0 sm:w-full flex flex-col items-end">
-          <h3 className="text-sky-700">{location}</h3>
+          <h3 className="text-sky-700 text-right">{location}</h3>
           <small className="w-full min-w-0  text-stone-400 truncate text-end">{address}</small>
           <p className="w-full min-w-0  text-stone-600 truncate text-end">{description}</p>
         </div>
