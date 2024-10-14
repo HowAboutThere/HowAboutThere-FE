@@ -7,14 +7,22 @@ import ScheduleThemeItem from "./ScheduleThemeList/ScheduleThemeItem";
 import Card from "@/components/Card/Card";
 import { Form, FormField } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { usePunnel } from "@/hooks/usePunnel";
 
 type AIScheduleThemeType = {
   theme: ThemeType;
 };
 
 export default function AIScheduleThemeCard() {
+  const { getNextPunnel } = usePunnel();
+
   const form = useForm<AIScheduleThemeType>();
   const themes = mocks;
+
+  const onClickNext = () => {
+    console.log(form.getValues());
+    getNextPunnel();
+  };
 
   return (
     <Card title={"테마 선택"} description={"어떤 테마로 여행을 떠나볼까요?"}>
@@ -37,7 +45,9 @@ export default function AIScheduleThemeCard() {
               </ol>
             )}
           ></FormField>
-          <Button type="submit">다음</Button>
+          <Button type="button" onClick={onClickNext}>
+            다음
+          </Button>
         </form>
       </Form>
     </Card>

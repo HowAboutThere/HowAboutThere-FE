@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { DateRange } from "react-day-picker";
 import { REGIONS } from "@/constant/region";
 import { MAX_BUDGET } from "@/constant/AISchedule";
+import { usePunnel } from "@/hooks/usePunnel";
 
 type AIPlannerFormType = {
   budget?: number;
@@ -18,11 +19,18 @@ type AIPlannerFormType = {
 };
 
 export default function AIScheduleFormCard() {
+  const { getNextPunnel } = usePunnel();
+
   const form = useForm<AIPlannerFormType>();
   const wonCurrency = Intl.NumberFormat("ko-KR", {
     style: "currency",
     currency: "KRW",
   });
+
+  const onClickNext = () => {
+    console.log(form.getValues());
+    getNextPunnel();
+  };
 
   return (
     <Card title={"정보 입력"} description={"여행 일정을 만들기 위한 사전 정보를 입력하는 곳입니다."}>
@@ -89,7 +97,9 @@ export default function AIScheduleFormCard() {
               </FormItem>
             )}
           />
-          <Button type="submit">다음</Button>
+          <Button type="button" onClick={onClickNext}>
+            다음
+          </Button>
         </form>
       </Form>
     </Card>
