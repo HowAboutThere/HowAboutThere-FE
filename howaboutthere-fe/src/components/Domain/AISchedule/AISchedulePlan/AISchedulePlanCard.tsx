@@ -13,6 +13,7 @@ import SchedulePlanSummary from "./SchedulePlanSummary";
 import SchedulePlanListItem from "./SchedulePlanList/SchedulePlanListItem";
 import { ActivityPlan, TransportPlan } from "@/types/plan-type";
 import { Button } from "@/components/ui/button";
+import { usePunnel } from "@/hooks/usePunnel";
 
 type PlanAPIResponse = {
   result: Array<{
@@ -23,11 +24,17 @@ type PlanAPIResponse = {
 };
 
 export default function AISchedulePlanCard() {
+  const { getFirstPunnel } = usePunnel();
+
   const plans: PlanAPIResponse = mocks as PlanAPIResponse;
   const [currentDay, setCurrentDay] = useState(0);
-  const [_, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
+  const [, setCurrentPolyline] = useState<google.maps.Polyline | null>(null);
 
   const map = useMap("ai-schedule-plan-map");
+
+  const onClickMain = () => {
+    getFirstPunnel();
+  };
 
   useLayoutEffect(() => {
     if (map && plans?.result[currentDay]?.schedule) {
@@ -95,6 +102,9 @@ export default function AISchedulePlanCard() {
             </div>
           </div>
         </article>
+        <Button type="button" onClick={onClickMain}>
+          처음으로
+        </Button>
       </div>
     </Card>
   );

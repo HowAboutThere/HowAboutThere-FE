@@ -30,13 +30,18 @@ export const usePunnel = () => {
     setPunnelState((prev) => --prev);
   }, [isFirstPunnelState, setPunnelState]);
 
+  const getFirstPunnel = useCallback(() => {
+    setPunnelState(0);
+  }, [setPunnelState]);
+
   return useMemo(
     () => ({
       getCurrentPunnel,
       getNextPunnel,
       getPrevPunnel,
+      getFirstPunnel,
       punnel: flow[punnelState].punnelComponent,
     }),
-    [flow, getCurrentPunnel, getNextPunnel, getPrevPunnel, punnelState]
+    [flow, getCurrentPunnel, getFirstPunnel, getNextPunnel, getPrevPunnel, punnelState]
   );
 };
