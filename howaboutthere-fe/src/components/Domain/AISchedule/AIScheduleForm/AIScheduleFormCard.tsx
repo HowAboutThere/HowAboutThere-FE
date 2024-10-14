@@ -1,3 +1,5 @@
+import mock from "@/mocks/ai-schedule-theme-mock.json";
+
 import { useForm } from "react-hook-form";
 
 import Card from "@/components/Card/Card";
@@ -15,6 +17,7 @@ import { useMutation } from "@tanstack/react-query";
 import { postAIScheduleTheme } from "@/apis/api/ai-schedule-api";
 import { useAIScheduleStore } from "@/stores/ai-schedule-store";
 import { ThemeType } from "@/types/theme-type";
+import { useEffect } from "react";
 
 export type AIScheduleFormType = {
   budget: number;
@@ -24,7 +27,7 @@ export type AIScheduleFormType = {
 
 export default function AIScheduleFormCard() {
   const { getNextPunnel } = usePunnel();
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, isError } = useMutation({
     mutationFn: postAIScheduleTheme,
   });
 
@@ -43,23 +46,38 @@ export default function AIScheduleFormCard() {
     currency: "KRW",
   });
 
-  const onClickNext = async () => {
-    setForm(form.getValues());
-
-    const result = await mutateAsync({
-      startDate: form.getValues("schedule").from!.toISOString(),
-      endDate: form.getValues("schedule").to!.toISOString(),
-      budget: form.getValues("budget"),
-      isDomestic: form.getValues("region") === "domestic",
-    });
-    const newTheme = result.map<ThemeType>((theme, index) => ({
+  //TODO:mocks를 이용한 테스트 코드
+  useEffect(() => {
+    if (!isError) return;
+    const newTheme = mock.map<ThemeType>((theme, index) => ({
       id: index,
       city: theme.region, //TODO: 추후에 region으로 변경
       travelType: theme.theme,
     }));
     setThemes(newTheme);
-
     getNextPunnel();
+  }, [getNextPunnel, isError, setThemes]);
+
+  const onClickNext = async () => {
+    setForm(form.getValues());
+
+    try {
+      const result = await mutateAsync({
+        startDate: form.getValues("schedule").from!.toISOString(),
+        endDate: form.getValues("schedule").to!.toISOString(),
+        budget: form.getValues("budget"),
+        isDomestic: form.getValues("region") === "domestic",
+      });
+      const newTheme = result.map<ThemeType>((theme, index) => ({
+        id: index,
+        city: theme.region, //TODO: 추후에 region으로 변경
+        travelType: theme.theme,
+      }));
+      setThemes(newTheme);
+      getNextPunnel();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
