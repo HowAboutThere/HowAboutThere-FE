@@ -13,12 +13,15 @@ import { useLayoutEffect } from "react";
 import { useMultipleSelect } from "@/hooks/useMultipleSelect";
 import { getBoundFromPoints } from "@/utils/mapUtil";
 import MapPin from "@/components/Map/MapPin";
+import { usePunnel } from "@/hooks/usePunnel";
 
 type AIScheduleLocationType = {
   locations: LocationType[];
 };
 
 export default function AIScheduleLocationCard() {
+  const { getNextPunnel } = usePunnel();
+
   const locations = mocks;
   const { toggleSelect, isItemInSelectedItems } = useMultipleSelect<LocationType>();
 
@@ -28,6 +31,11 @@ export default function AIScheduleLocationCard() {
     },
   });
   const selectedLocations = form.watch("locations");
+
+  const onClickNext = () => {
+    console.log(form.getValues());
+    getNextPunnel();
+  };
 
   const map = useMap("ai-schedule-location-map");
 
@@ -78,7 +86,9 @@ export default function AIScheduleLocationCard() {
                 </ol>
               )}
             ></FormField>
-            <Button type="submit">다음</Button>
+            <Button type="button" onClick={onClickNext}>
+              다음
+            </Button>
           </form>
         </Form>
       </div>
