@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout/Layout";
 import AISchedulePage from "@/pages/ai-schedule/AISchedulePage";
+import MainPage from "@/pages/main/MainPage";
 import SignInPage from "@/pages/sign-in/SignInPage";
 import SignUpPage from "@/pages/sign-up/SignUpPage";
 import UIComponents from "@/pages/ui-components/UIComponents";
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        // element: <Hero />,
+        element: <MainPage />,
       },
       {
         path: "ui-components",
