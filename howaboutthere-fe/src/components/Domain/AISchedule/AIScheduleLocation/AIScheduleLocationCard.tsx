@@ -1,4 +1,4 @@
-import mocks from "@/mocks/ai-schedule-location-mock.json";
+import mocks from "@/mocks/ai-schedule-plan-mock.json";
 
 import { useForm } from "react-hook-form";
 
@@ -9,20 +9,31 @@ import ScheduleLocationItem from "./ScheduleLocationList/ScheduleLocationItem";
 import Map from "@/components/Map/Map";
 import { LocationType } from "@/types/location-type";
 import { useMap } from "@vis.gl/react-google-maps";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useMultipleSelect } from "@/hooks/useMultipleSelect";
 import { getBoundFromPoints } from "@/utils/mapUtil";
 import MapPin from "@/components/Map/MapPin";
 import { usePunnel } from "@/hooks/usePunnel";
+import { useAIScheduleStore } from "@/stores/ai-schedule-store";
+import { useMutation } from "@tanstack/react-query";
+import { getAISchedulePlan } from "@/apis/api/ai-schedule-api";
+import { ActivityPlan, TransportPlan } from "@/types/plan-type";
+import { PlanType } from "../AISchedulePlan/AISchedulePlanCard";
 
 type AIScheduleLocationType = {
   locations: LocationType[];
 };
 
 export default function AIScheduleLocationCard() {
+  const travelInfo = useAIScheduleStore((state) => state.form);
+  const setPlan = useAIScheduleStore((state) => state.updatePlan);
+
+  const { mutateAsync, isPending, isError } = useMutation({
+    mutationFn: getAISchedulePlan,
+  });
   const { getNextPunnel } = usePunnel();
 
-  const locations = mocks;
+  const locations = useAIScheduleStore((state) => state.locations);
   const { toggleSelect, isItemInSelectedItems } = useMultipleSelect<LocationType>();
 
   const form = useForm<AIScheduleLocationType>({
@@ -32,16 +43,57 @@ export default function AIScheduleLocationCard() {
   });
   const selectedLocations = form.watch("locations");
 
-  const onClickNext = () => {
-    console.log(form.getValues());
+  useEffect(() => {
+    if (!isError) return;
+    const newPlans: PlanType = mocks.map((location) => ({
+      date: location.day,
+      description: location.summary,
+      schedule: location.spots.map<ActivityPlan | TransportPlan>((spot, index) => ({
+        id: index,
+        type: "activity",
+        time: spot.time,
+        location: spot.touristSpot,
+        activity: spot.activity,
+        latlng: { lat: 0, lng: 0 },
+      })),
+    }));
+    setPlan(newPlans);
     getNextPunnel();
+  }, [getNextPunnel, isError, setPlan]);
+
+  const onClickNext = async () => {
+    try {
+      const result = await mutateAsync({
+        startDate: travelInfo.schedule.from!.toDateString(),
+        endDate: travelInfo.schedule.to!.toDateString(),
+        touristspots: selectedLocations.map<{ spotname: string }>((location) => ({
+          spotname: location.location,
+        })),
+      });
+      const newPlans: PlanType = result.map((location) => ({
+        date: location.day,
+        description: location.summary,
+        schedule: location.spots.map<ActivityPlan | TransportPlan>((spot, index) => ({
+          id: index,
+          type: "activity",
+          time: spot.time,
+          location: spot.touristSpot,
+          activity: spot.activity,
+          latlng: { lat: 0, lng: 0 },
+        })),
+      }));
+      setPlan(newPlans);
+      getNextPunnel();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const map = useMap("ai-schedule-location-map");
 
   useLayoutEffect(() => {
-    map?.fitBounds(getBoundFromPoints(locations.result.map((location) => location.latlng)));
-  }, [locations.result, map]);
+    map?.fitBounds(getBoundFromPoints(locations.map((location) => location.latlng)));
+  }, [locations, map]);
 
   useLayoutEffect(() => {
     document.getAnimations().forEach((animation) => {
@@ -54,9 +106,9 @@ export default function AIScheduleLocationCard() {
       <div className="flex flex-col gap-8">
         <div className=" border rounded-xl overflow-hidden">
           <Map id="ai-schedule-location-map">
-            {locations.result.map((location) => (
+            {locations.map((location) => (
               <MapPin
-                key={`${location.latlng.lat}-${location.latlng.lng}`}
+                key={`${location.id}`}
                 position={location.latlng}
                 isAnimated={isItemInSelectedItems(selectedLocations, location)}
               />
@@ -70,14 +122,14 @@ export default function AIScheduleLocationCard() {
               name={"locations"}
               render={({ field }) => (
                 <ol className="flex flex-col w-full p-0 gap-1">
-                  {locations.result.map((location) => (
+                  {locations.map((location) => (
                     <ScheduleLocationItem
                       id={location.id}
                       key={location.id}
                       location={location.location}
                       address={location.address}
                       description={location.description}
-                      imgSrc="https://images.unsplash.com/photo-1696993545232-2b2717676c40?q=80&w=1392&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      imgSrc={location.imgSrc}
                       isSelected={field.value && isItemInSelectedItems(field.value, location)}
                       onSelect={() => field.onChange(toggleSelect(field.value, location))}
                       latlng={location.latlng}
@@ -86,7 +138,7 @@ export default function AIScheduleLocationCard() {
                 </ol>
               )}
             ></FormField>
-            <Button type="button" onClick={onClickNext}>
+            <Button type="button" onClick={onClickNext} disabled={isPending}>
               다음
             </Button>
           </form>
