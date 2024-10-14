@@ -22,12 +22,12 @@ export const usePunnel = () => {
 
   const getNextPunnel = useCallback(() => {
     if (isLastPunnelState()) return;
-    setPunnelState((prev) => prev++);
+    setPunnelState((prev) => ++prev);
   }, [isLastPunnelState, setPunnelState]);
 
   const getPrevPunnel = useCallback(() => {
     if (isFirstPunnelState()) return;
-    setPunnelState((prev) => prev--);
+    setPunnelState((prev) => --prev);
   }, [isFirstPunnelState, setPunnelState]);
 
   return useMemo(
