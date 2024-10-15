@@ -9,6 +9,9 @@ export default {
       body: ["Pretendard Variable"],
     },
     extend: {
+      aspectRatio: {
+        mobile: "16 / 9",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
