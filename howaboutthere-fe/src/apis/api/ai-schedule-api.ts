@@ -12,7 +12,7 @@ type postAIScheduleThemeAPIResponse = {
 }[];
 export const postAIScheduleTheme = async (
   data: postAIScheduleThemeAPIRequest
-): Promise<postAIScheduleThemeAPIResponse> => await axiosInstance.post("/trip/theme", data);
+): Promise<postAIScheduleThemeAPIResponse> => (await axiosInstance.post("/trip/theme", data)).data;
 
 type postAIScheduleLocationAPIRequest = {
   region: string;
@@ -25,9 +25,9 @@ type postAIScheduleLocationAPIResponse = {
 }[];
 export const postAIScheduleLocation = async (
   data: postAIScheduleLocationAPIRequest
-): Promise<postAIScheduleLocationAPIResponse> => await axiosInstance.post("/trip/spot", data);
+): Promise<postAIScheduleLocationAPIResponse> => (await axiosInstance.post("/trip/spot", data)).data;
 
-export const postAISchedulePlan = async () => await axiosInstance.post("/trip/itinerary", {});
+export const postAISchedulePlan = async () => (await axiosInstance.post("/trip/itinerary", {})).data;
 
 type getAISchedulePlanAPIRequest = {
   startDate: string;
@@ -47,4 +47,4 @@ type getAISchedulePlanAPIResponse = {
 };
 
 export const getAISchedulePlan = async (data: getAISchedulePlanAPIRequest): Promise<getAISchedulePlanAPIResponse[]> =>
-  await axiosInstance.post("/trip/itinerary", data);
+  (await axiosInstance.post("/trip/itinerary", data)).data;
