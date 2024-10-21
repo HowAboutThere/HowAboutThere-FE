@@ -46,7 +46,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           #노드 버전 (환경변수에 저장해놔야 함)
-          node-version: ${{vars.node-version || 'latest'}}
+          node-version: ${{vars.node_version || 'latest'}}
 
       - name: node 버전 출력
         run: echo $(node --version)
