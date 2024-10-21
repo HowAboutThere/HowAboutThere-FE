@@ -27,15 +27,13 @@ export const postAIScheduleLocation = async (
   data: postAIScheduleLocationAPIRequest
 ): Promise<postAIScheduleLocationAPIResponse> => (await axiosInstance.post("/trip/spot", data)).data;
 
-export const postAISchedulePlan = async () => (await axiosInstance.post("/trip/itinerary", {})).data;
-
-type getAISchedulePlanAPIRequest = {
+type postAISchedulePlanAPIRequest = {
   startDate: string;
   endDate: string;
   touristspots: { spotname: string }[];
 };
 
-type getAISchedulePlanAPIResponse = {
+type postAISchedulePlanAPIResponse = {
   day: string;
   summary: string;
   spots: {
@@ -46,5 +44,6 @@ type getAISchedulePlanAPIResponse = {
   }[];
 };
 
-export const getAISchedulePlan = async (data: getAISchedulePlanAPIRequest): Promise<getAISchedulePlanAPIResponse[]> =>
-  (await axiosInstance.post("/trip/itinerary", data)).data;
+export const postAISchedulePlan = async (
+  data: postAISchedulePlanAPIRequest
+): Promise<postAISchedulePlanAPIResponse[]> => (await axiosInstance.post("/trip/itinerary", data)).data;
