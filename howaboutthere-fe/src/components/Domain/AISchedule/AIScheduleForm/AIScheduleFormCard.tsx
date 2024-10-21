@@ -52,7 +52,7 @@ export default function AIScheduleFormCard() {
     currency: "KRW",
   });
 
-  const onClickNext = async () => {
+  const onClickNext = () => {
     setForm(form.getValues());
 
     mutate({

@@ -38,7 +38,7 @@ export default function AIScheduleThemeCard() {
 
   const form = useForm<AIScheduleThemeType>();
 
-  const onClickNext = async () => {
+  const onClickNext = () => {
     mutate({
       region: form.getValues("theme").city,
       thema: form.getValues("theme").travelType,
