@@ -1,5 +1,3 @@
-import mocks from "@/mocks/ai-schedule-plan-mock.json";
-
 import { useForm } from "react-hook-form";
 
 import Card from "@/components/Card/Card";
@@ -9,14 +7,14 @@ import ScheduleLocationItem from "./ScheduleLocationList/ScheduleLocationItem";
 import Map from "@/components/Map/Map";
 import { LocationType } from "@/types/location-type";
 import { useMap } from "@vis.gl/react-google-maps";
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useMultipleSelect } from "@/hooks/useMultipleSelect";
 import { getBoundFromPoints } from "@/utils/mapUtil";
 import MapPin from "@/components/Map/MapPin";
 import { usePunnel } from "@/hooks/usePunnel";
 import { useAIScheduleStore } from "@/stores/ai-schedule-store";
 import { useMutation } from "@tanstack/react-query";
-import { getAISchedulePlan } from "@/apis/api/ai-schedule-api";
+import { postAISchedulePlan } from "@/apis/api/ai-schedule-api";
 import { ActivityPlan, TransportPlan } from "@/types/plan-type";
 import { PlanType } from "../AISchedulePlan/AISchedulePlanCard";
 
@@ -28,8 +26,24 @@ export default function AIScheduleLocationCard() {
   const travelInfo = useAIScheduleStore((state) => state.form);
   const setPlan = useAIScheduleStore((state) => state.updatePlan);
 
-  const { mutateAsync, isPending, isError } = useMutation({
-    mutationFn: getAISchedulePlan,
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["postAISchedulePlan"],
+    mutationFn: postAISchedulePlan,
+    onSuccess: (data) => {
+      const newPlans: PlanType = data.map((location) => ({
+        date: location.day,
+        description: location.summary,
+        schedule: location.spots.map<ActivityPlan | TransportPlan>((spot, index) => ({
+          id: index,
+          type: "activity",
+          time: spot.time,
+          location: spot.touristSpot,
+          activity: spot.activity,
+          latlng: { lat: 0, lng: 0 },
+        })),
+      }));
+      setPlan(newPlans);
+    },
   });
   const { getNextPunnel } = usePunnel();
 
@@ -43,50 +57,15 @@ export default function AIScheduleLocationCard() {
   });
   const selectedLocations = form.watch("locations");
 
-  useEffect(() => {
-    if (!isError) return;
-    const newPlans: PlanType = mocks.map((location) => ({
-      date: location.day,
-      description: location.summary,
-      schedule: location.spots.map<ActivityPlan | TransportPlan>((spot, index) => ({
-        id: index,
-        type: "activity",
-        time: spot.time,
-        location: spot.touristSpot,
-        activity: spot.activity,
-        latlng: { lat: 0, lng: 0 },
+  const onClickNext = () => {
+    mutate({
+      startDate: travelInfo.schedule.from!.toDateString(),
+      endDate: travelInfo.schedule.to!.toDateString(),
+      touristspots: selectedLocations.map<{ spotname: string }>((location) => ({
+        spotname: location.location,
       })),
-    }));
-    setPlan(newPlans);
+    });
     getNextPunnel();
-  }, [getNextPunnel, isError, setPlan]);
-
-  const onClickNext = async () => {
-    try {
-      const result = await mutateAsync({
-        startDate: travelInfo.schedule.from!.toDateString(),
-        endDate: travelInfo.schedule.to!.toDateString(),
-        touristspots: selectedLocations.map<{ spotname: string }>((location) => ({
-          spotname: location.location,
-        })),
-      });
-      const newPlans: PlanType = result.map((location) => ({
-        date: location.day,
-        description: location.summary,
-        schedule: location.spots.map<ActivityPlan | TransportPlan>((spot, index) => ({
-          id: index,
-          type: "activity",
-          time: spot.time,
-          location: spot.touristSpot,
-          activity: spot.activity,
-          latlng: { lat: 0, lng: 0 },
-        })),
-      }));
-      setPlan(newPlans);
-      getNextPunnel();
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const map = useMap("ai-schedule-location-map");
