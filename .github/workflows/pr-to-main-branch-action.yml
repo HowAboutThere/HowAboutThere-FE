@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     uses: HowAboutThere/HowAboutThere-FE/.github/workflows/npm-build-action.yml@main
+    secrets: inherit
     with:
       build-script: build
       branch-ref: ${{ github.event.pull_request.head.sha }}
